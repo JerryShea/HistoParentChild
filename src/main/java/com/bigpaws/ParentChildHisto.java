@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.function.LongConsumer;
 
 public class ParentChildHisto {
+    private static final String NEWLINE = System.lineSeparator();
     private final Histogram parent;
     private final Map<String, Histogram> children;
 
@@ -24,7 +25,10 @@ public class ParentChildHisto {
         parent.sampleNanos(sampleNanos);
     }
 
-    void output() {
-        System.out.println("end-to-end", );
+    String output() {
+        StringBuilder rv = new StringBuilder();
+        rv.append("end-to-end: ").append(parent.toMicrosFormat()).append(NEWLINE);
+        children.forEach((s, histogram) -> rv.append(s).append(": ").append(histogram.toMicrosFormat()).append(NEWLINE));
+        return rv.toString();
     }
 }

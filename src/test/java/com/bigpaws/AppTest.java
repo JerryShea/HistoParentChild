@@ -1,38 +1,16 @@
 package com.bigpaws;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.junit.Test;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+public class AppTest {
+    @Test
+    public void test() {
+        ParentChildHisto pch = new ParentChildHisto();
+        pch.probe("a").accept(123456789);
+        pch.sampleNanos(666666666666L);
+        Assert.assertEquals(
+                "end-to-end: 50/90 99/99.9 99.99 - worst was 666,793,670 / 666,793,670  666,793,670 / 666,793,670  666,793,670 - 666,793,670\n" +
+                "a: 50/90 99/99.9 99.99 - worst was 123,340 / 123,340  123,340 / 123,340  123,340 - 123,340\n", pch.output());
     }
 }
